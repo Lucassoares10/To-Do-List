@@ -8,18 +8,15 @@ import { TaskList } from '../../model/task-list';
   styleUrls: ['./to-do-list.component.scss']
 })
 export class ToDoListComponent implements DoCheck {
-
-  public taskList: Array<TaskList> = [];
+  //json parse para converter para json
+  public taskList: Array<TaskList> = JSON.parse(localStorage.getItem("list") || '[]');
 
   constructor() { }
 
   ngDoCheck(): void {
-    //sempre que tiver alguma reatividade o NgDoCheck vai trigar algo
-    this.taskList.sort( (first,last) => Number(first.checked) - Number(last.checked));
-    //Todos os elementos que estiverem checked vão pra baixo dos que não estiverem marcados.
-    //sort() O método sort() ordena os elementos do próprio array e retorna o array.
-    //A ordenação não é necessariamente estável.
-    //A ordenação padrão é de acordo com a pontuação de código unicode.
+    console.log('teste para ver se funciona mesmo')
+    this.setLocalStorage();
+
   }
 
   public deleteItem(event: number) {
@@ -44,14 +41,29 @@ export class ToDoListComponent implements DoCheck {
 
   }
 
-  public validationInput(event: string,index: number){
-    if(!event.length){
+  public validationInput(event: string, index: number) {
+    if (!event.length) {
       const confirm = window.confirm("Task está vazia, deseja deletar?");
-      
-      if(confirm){
+
+      if (confirm) {
         this.deleteItem(index);
       }
     }
-    
+
+  }
+
+  public setLocalStorage() {
+    if (this.taskList) {
+      //sempre que tiver alguma reatividade o NgDoCheck vai trigar algo
+      this.taskList.sort((first, last) => Number(first.checked) - Number(last.checked));
+      //Todos os elementos que estiverem checked vão pra baixo dos que não estiverem marcados.
+      //sort() O método sort() ordena os elementos do próprio array e retorna o array.
+      //A ordenação não é necessariamente estável.
+      //A ordenação padrão é de acordo com a pontuação de código unicode.
+      // ---------------------Adicionando os valores da lista no localStorage---------------------
+      //O local storage so aceita strings, para isso é preciso fazer a conversão para string
+      localStorage.setItem("list", JSON.stringify(this.taskList));
+    }
   }
 }
+
