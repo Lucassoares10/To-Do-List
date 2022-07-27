@@ -9,7 +9,7 @@ section{
 
   margin-top: 20px;
 
-  &.loading{
+  &.loading{ //css e imagem de loading quando não tiver nenhum tarefa na lista
     background-image: url("../../../../../assets/img/bg-task.png");
     background-repeat: no-repeat;
     background-position: center 30px;

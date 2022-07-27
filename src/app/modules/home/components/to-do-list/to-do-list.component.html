@@ -1,25 +1,22 @@
-<section>
-    <ul>
-        <li>
-            <input type="checkbox">
-            <input type="text">
+<section [ngClass]="{'loading': !taskList.length}">
+    <!-- Validações para a lista utilizando diretivas de atributo -->
+    <ul *ngIf="taskList.length">
+        <li *ngFor="let item of taskList; let i = index">
+            <!-- ngModel precisa ser importado do formsModule no module do componente -->
+            <input type="checkbox" [(ngModel)]="item.checked">
+            <!-- habilitando a classe scss quando o checked for true -->
+            <input type="text" (keyup) ="validationInput(item.task, i)"
+            [(ngModel)]="item.task" 
+            [ngClass]="{'checked': item.checked}">
             
-            <button>
+            <button (click)="deleteItem(i)">
                 <img src="assets/icon/icon-trash.svg">
             </button>
-        </li>
-
-        <li>
-            <input type="checkbox">
-            <input type="text" class="checked">
-            
-            <button>
-                <img src="assets/icon/icon-trash.svg">
-            </button>
+            <!-- {{item | json}} para poder pegar um em formato json todos os valores da variavel -->
         </li>
         
     </ul>
 </section>
-
-<app-to-do-input-add-itens></app-to-do-input-add-itens>
-<app-to-do-button-delete-all></app-to-do-button-delete-all>
+<!-- Esse set Emit recebendo $event seria o valor que o outPut passa através do evento -->
+<app-to-do-input-add-itens (emitItemTaskList)="setEmitTaskList($event)"></app-to-do-input-add-itens>
+<app-to-do-button-delete-all *ngIf="taskList.length" (click)="deleteAll()"></app-to-do-button-delete-all>

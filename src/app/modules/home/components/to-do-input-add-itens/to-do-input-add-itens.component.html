@@ -1,4 +1,10 @@
-<input type="text" placeholder="Digite sua nova Task....">
+<input type="text" placeholder="Digite sua nova Task...." [(ngModel)]="addItemTasklist"
+    (keyup.enter)="submitItemTaskList()">
 <!-- placeholder é uma pequena frase ou palavra, que tem o intuito de ajudar usuários
  a entender como devem preencher determinado formulário, inserindo um texto contextual
  no campo a ser respondido -->
+
+<!-- keyup.enter : Ele é ativado sempre que uma tecla qualquer é clicada.
+A função ou outra ação configurada é disparada cada vez que uma tecla é digitada.
+Ele é normalmente usado em input e pode ser passado parâmetros por objeto para teclas específicas.
+Quando clicar no enter ele vai ativar esse keyUP -->
