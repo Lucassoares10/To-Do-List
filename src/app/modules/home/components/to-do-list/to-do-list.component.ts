@@ -14,7 +14,7 @@ export class ToDoListComponent implements DoCheck {
   constructor() { }
 
   ngDoCheck(): void {
-    console.log('teste para ver se funciona mesmo')
+    //sempre que tiver alguma reatividade o NgDoCheck vai trigar algo
     this.setLocalStorage();
 
   }
@@ -54,7 +54,6 @@ export class ToDoListComponent implements DoCheck {
 
   public setLocalStorage() {
     if (this.taskList) {
-      //sempre que tiver alguma reatividade o NgDoCheck vai trigar algo
       this.taskList.sort((first, last) => Number(first.checked) - Number(last.checked));
       //Todos os elementos que estiverem checked vão pra baixo dos que não estiverem marcados.
       //sort() O método sort() ordena os elementos do próprio array e retorna o array.
